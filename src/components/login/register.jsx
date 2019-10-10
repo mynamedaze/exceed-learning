@@ -11,14 +11,10 @@ class Register extends React.Component{
         <div className="inputs-wrapper">
           <input type="text" className="input  input--login" placeholder="Придумайте логин" required/>
           <input type="text" className="input  input--password" placeholder="Придумайте пароль" required/>
-          <input type="text" className="input  input--password" placeholder="Введите его еще раз" required/>
+          <input type="text" className="input  input--password" placeholder="Введите пароль еще раз" required/>
           <input type="email" className="input  input--email" placeholder="Эл. почта"/>
           <input type="text" className="input  input--name" placeholder="Имя"/>
           <input type="number" className="input  input--age" placeholder="Ваш возраст"/>
-          <div className="remember-field">
-            <input type="checkbox" id='main-form-remember-checkbox' className="remember-checkbox"/>
-            <label htmlFor="main-form-remember-checkbox" className="remember-label">fgg</label>
-          </div>
         </div>
         <button type="submit" className="submit-btn">Register</button>
         <span className="or">or</span>

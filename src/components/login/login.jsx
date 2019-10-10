@@ -10,14 +10,14 @@ class Login extends React.Component {
       <div className="login" >
         <h2 className="title">Signin Form</h2>
         <div className="inputs-wrapper">
-          <input type="text" className="input  input--login"/>
-          <input type="text" className="input  input--password"/>
+          <input type="text" className="input  input--login" placeholder="логин"/>
+          <input type="text" className="input  input--password" placeholder="пароль"/>
           <div className="remember-field">
             <input type="checkbox" id='main-form-remember-checkbox' className="remember-checkbox"/>
-            <label htmlFor="main-form-remember-checkbox" className="remember-label">fgg</label>
+            <label htmlFor="main-form-remember-checkbox" className="remember-label">Remember me?</label>
           </div>
           <div className="forgot-field">
-            <button className="forgot-link">Forgot password?</button>
+            <button className="forgot-btn">Forgot password?</button>
           </div>
         </div>
         <button type="submit" className="submit-btn">sign in</button>

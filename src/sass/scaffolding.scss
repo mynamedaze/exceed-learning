@@ -47,7 +47,8 @@ input[type="submit"] {
 }
 input[type="tel"],
 input[type="text"],
-input[type="email"]{
+input[type="email"],
+input[type="number"] {
   @media #{$max-mobile-width} {
     padding-left: 4px;
     padding-right: 4px;
