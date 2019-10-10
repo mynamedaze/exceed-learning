@@ -1,0 +1,28 @@
+@import "./sass/variables";
+@import "./sass/mixins";
+
+html {
+  min-height: 100%;
+  background-image: url("./img/main-bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+body {
+  height: 100%;
+  background-color: transparent;
+}
+#root {
+  height: 100%;
+}
+.intro {
+  .main-form-container {
+    margin-top: 300px;
+    max-width: 400px;
+    @include centers;
+  }
+  .wrapper {
+    @include section-width;
+    @include paddings;
+  }
+}
