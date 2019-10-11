@@ -8,7 +8,7 @@ class Login extends React.Component {
   render() {
     return (
       <div className="login" >
-        <h2 className="title">Signin Form</h2>
+        <h2 className="title">{this.props.isLoginActive && 'Signin form'}</h2>
         <div className="inputs-wrapper">
           <input type="text" className="input  input--login" placeholder="логин"/>
           <input type="text" className="input  input--password" placeholder="пароль"/>

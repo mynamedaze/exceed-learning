@@ -1,16 +1,54 @@
 import React from 'react';
 
+const valid = [
+    {
+      field: 'login',
+      reg: '/^(?=.*[a-z]).{6,}/',
+      type: 'text',
+      required: true,
+      placeholder: 'Придумайте логин',
+      classN: 'input  input--login'
+    },
+    {
+      field: 'password',
+      reg: '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\\w\\s]).{6,}/',
+      type: 'text',
+      required: true,
+      placeholder: 'Придумайте пароль',
+      classN: 'input  input--password'
+    }
+  ];
 class Register extends React.Component{
   constructor(props) {
     super(props);
+    this.state = {
+      inputValue: '',
+      passwordValue: '',
+      passwordConfirmValue: '',
+      emailValue: '',
+      nameValue: '',
+      ageValue: ''
+    };
+
+    this.changeVal = this.changeVal.bind(this);
+
   }
+
+  changeVal(item, event) {
+    this.setState({ loginValue: event.target.value });
+  }
+
   render() {
     return (
       <div className="register">
-        <h2 className="title">Signin Form</h2>
+        <h2 className="title">{!this.props.isLoginActive && 'Register form'}</h2>
         <div className="inputs-wrapper">
-          <input type="text" className="input  input--login" placeholder="Придумайте логин" required/>
-          <input type="text" className="input  input--password" placeholder="Придумайте пароль" required/>
+          {valid.map((item, i)=>{
+            return(
+            <input type={valid[i].type} className={valid[i].classN} value={this.state.loginValue}
+                   onChange={(e) => { this.changeVal(item, e);}} placeholder={valid[i].placeholder} required={valid[i].required}/>
+            )})}
+
           <input type="text" className="input  input--password" placeholder="Введите пароль еще раз" required/>
           <input type="email" className="input  input--email" placeholder="Эл. почта"/>
           <input type="text" className="input  input--name" placeholder="Имя"/>
