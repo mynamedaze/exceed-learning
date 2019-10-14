@@ -21,21 +21,17 @@ const valid = [
 class Register extends React.Component{
   constructor(props) {
     super(props);
-    this.state = {
-      inputValue: '',
-      passwordValue: '',
-      passwordConfirmValue: '',
-      emailValue: '',
-      nameValue: '',
-      ageValue: ''
-    };
+    this.state = {};
 
     this.changeVal = this.changeVal.bind(this);
 
   }
 
   changeVal(item, event) {
-    this.setState({ loginValue: event.target.value });
+    let obj = {};
+
+    obj[item.field] = event.target.value;
+    this.setState(obj);
   }
 
   render() {
@@ -45,7 +41,7 @@ class Register extends React.Component{
         <div className="inputs-wrapper">
           {valid.map((item, i)=>{
             return(
-            <input type={valid[i].type} className={valid[i].classN} value={this.state.loginValue}
+            <input type={valid[i].type} className={valid[i].classN} value={this.state[item.field]}
                    onChange={(e) => { this.changeVal(item, e);}} placeholder={valid[i].placeholder} required={valid[i].required}/>
             )})}
 
