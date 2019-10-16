@@ -60,6 +60,10 @@
     &:-ms-input-placeholder {
       color: #fff;
     }
+
+    &.error {
+      border-bottom: 1px solid red;
+    }
   }
   .remember-field {
     width: 50%;
@@ -74,6 +78,7 @@
     position: relative;
     color: #fff;
     padding-left: 19px;
+    cursor: pointer;
     &::after {
       position: absolute;
       content: "";
@@ -85,7 +90,16 @@
     }
   }
   #main-form-remember-checkbox:checked ~ .remember-label {
-
+    position: relative;
+    &::before {
+      position: absolute;
+      content: "";
+      left: 3px;
+      top: 3px;
+      width: 6px;
+      height: 6px;
+      background-color: #fff;
+    }
   }
   .forgot-field {
     width: 50%;
