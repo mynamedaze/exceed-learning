@@ -1,5 +1,7 @@
 import React from 'react';
 import validRegister from './utils/validRegister.js';
+import Pass from './inputs/Pass.jsx';
+import InputDefault from './inputs/InputDefault.jsx';
 
 class Register extends React.Component{
   constructor(props) {
@@ -7,54 +9,6 @@ class Register extends React.Component{
     this.state = {
       inputsValue: {}
     };
-
-    this.changeVal = this.changeVal.bind(this);
-    this.submitReg = this.submitReg.bind(this);
-
-    this.formData = {};
-  }
-
-  changeVal(item, event) {
-    const currentValue = {};
-    currentValue[item.value] = event.target.value;
-
-    let checkValidRegExp = currentValue[item.value].match(item.reg);
-
-    item.hasError = !checkValidRegExp;
-
-    this.formData[item.field] = {
-      hasError: item.hasError,
-      value: currentValue[item.value]
-    };
-
-    console.log(this.formData);
-
-    this.setState({inputsValue: {currentValue}});
-  }
-
-  submitReg(event) {
-    let validSubmitStatus = false;
-    let validHasSome = true, validHasNotSome;
-
-    for (let i = 0; i < validRegister.length; i++) {
-      if (!this.formData.hasOwnProperty(validRegister[i].field)) {
-        validHasSome = false;
-      }
-    }
-
-    let passwordMatched;
-
-    if (this.formData.passwordRegister.value === this.formData.passwordConfirmRegister.value) {
-      passwordMatched = true;
-    } else {
-      passwordMatched = false;
-      this.formData.passwordRegister.hasError = true;
-      this.formData.passwordConfirmRegister.hasError = true;
-    }
-
-    validSubmitStatus = validHasSome && passwordMatched;
-    console.log(validSubmitStatus);
-    event.preventDefault();
   }
 
   render() {
@@ -64,13 +18,14 @@ class Register extends React.Component{
         <div className="inputs-wrapper">
           {validRegister.map((item, i)=>{
               return (
-                item.isConfirmPass ? <Pass options={item} /> : <input key={item.field} type={validRegister[i].type} className={`${validRegister[i].classN}  ${item.hasError ? 'error' : ''}`} value={this.state.inputsValue[item.field]}
-                   onChange={(e) => { this.changeVal(item, e);}} placeholder={validRegister[i].placeholder} required={validRegister[i].required}/>
+                item.isConfirmPass ?
+                  <Pass key={item.field} options={item} index={i} /> :
+                  <InputDefault key={item.field} options={item} index={i}/>
             )})}
         </div>
-        <button type="submit" className="submit-btn"  onClick={(e) => {this.submitReg(e)}}>Register</button>
+        <button type="submit" className="submit-btn">Register</button>
         <span className="or">or</span>
-        <button className="or-btn" onClick={this.props.openReg}>Sign in</button>
+        <button className="or-btn">Sign in</button>
       </div>
     );
   }
