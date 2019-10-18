@@ -19,7 +19,7 @@ const validRegister = [
   },
   {
     field: 'emailRegister',
-    reg: '',
+    reg: /.+@.+\..+/i,
     type: 'text',
     required: true,
     placeholder: 'Электронная почта',

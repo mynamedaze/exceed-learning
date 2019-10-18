@@ -32,6 +32,15 @@
     margin-right: 30px;
     display: flex;
     flex-wrap: wrap;
+    position: relative;
+    &.already-exists::after {
+      position: absolute;
+      content: "данный логин уже занят";
+      top: 0;
+      left: 0;
+      color: #fff;
+      z-index: 3;
+    }
   }
 
   .input {
@@ -42,6 +51,7 @@
     width: 100%;
     border-radius: 0;
     color: #fff;
+    position: relative;
 
     &::-webkit-input-placeholder {
       color: #fff;

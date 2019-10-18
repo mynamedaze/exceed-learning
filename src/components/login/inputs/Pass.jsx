@@ -11,8 +11,6 @@ class Pass extends React.Component {
     };
 
     this.changeVal = this.changeVal.bind(this);
-
-    this.formData = {};
   }
 
   changeVal(item, isConfirm, event) {
@@ -33,14 +31,15 @@ class Pass extends React.Component {
 
     }
     this.setState(function(state) {
+      this.props.forGetValues(item.field, currentValue[item.field], item.hasError, item.required);
       return {
         hasError: item.hasError || (state.inputsValue !== state.inputsValueConfirm)
       };
     });
+
   }
 
   render() {
-    console.log(this.state);
     return (
       <div>
         <input type={validRegister[this.props.index].type}

@@ -11,17 +11,15 @@ class InputDefault extends React.Component {
 
   changeVal(item, event) {
     const currentValue = {};
-    currentValue[item.value] = event.target.value;
+    currentValue[item.field] = event.target.value;
 
-    let checkValidRegExp = currentValue[item.value].match(item.reg);
+    let checkValidRegExp = currentValue[item.field].match(item.reg);
 
     item.hasError = !checkValidRegExp;
 
-    this.setState(function(state) {
-      return {
-        hasError: item.hasError || (state.inputsValue !== state.inputsValueConfirm)
-      };
-    });
+    this.props.forGetValues(item.field, currentValue[item.field], item.hasError, item.required);
+
+    this.setState({ hasError: item.hasError });
 
   }
 
