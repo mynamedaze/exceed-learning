@@ -1,6 +1,6 @@
 const validRegister = [
   {
-    field: 'loginRegister',
+    field: 'login',
     reg: /^(?=.*[a-z]).{6,}/,
     type: 'text',
     required: true,
@@ -8,7 +8,7 @@ const validRegister = [
     classN: 'input  input--login'
   },
   {
-    field: 'passwordRegister',
+    field: 'password',
     reg: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\\w\\s]).{6,}/,
     type: 'text',
     required: true,
@@ -18,7 +18,7 @@ const validRegister = [
     isConfirmPass: true
   },
   {
-    field: 'emailRegister',
+    field: 'email',
     reg: /.+@.+\..+/i,
     type: 'text',
     required: true,
@@ -26,7 +26,7 @@ const validRegister = [
     classN: 'input  input--email'
   },
   {
-    field: 'nameRegister',
+    field: 'name',
     reg: '',
     type: 'text',
     required: false,
@@ -34,7 +34,7 @@ const validRegister = [
     classN: 'input  input--name'
   },
   {
-    field: 'ageRegister',
+    field: 'age',
     reg: '',
     type: 'number',
     required: false,

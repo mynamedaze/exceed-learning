@@ -13,43 +13,25 @@ function getValue(field, value, hasError, isRequired) {
 }
 
 function checkRequires() {
-  let requiredOriginal = [],
-    requiredCurrent = [],
-    noError = false,
-    errTrigger = 0;
+  let errTrigger = 0;
 
   console.log(inp);
 
   for (let i = 0; i < validRegister.length; i++) {
     const { field, required } = validRegister[i];
-    const filedFilled = !!inp[field];
+    const fieldFilled = !!inp[field];
 
     if (required) {
-      errTrigger = filedFilled ? errTrigger : errTrigger + 1;
+      errTrigger = fieldFilled ? errTrigger : errTrigger + 1;
     }
 
-    if (filedFilled && inp[field].hasError) {
+    if (fieldFilled && inp[field].hasError) {
       errTrigger++;
     }
 
   }
 
-  // for (let key in inp) {
-  //   if (inp[key].isRequired) {
-  //     requiredCurrent = requiredCurrent.concat(key);
-  //     console.log('current: ' + requiredCurrent);
-  //   }
-  //   if (inp[key].hasError) {
-  //     errTrigger = 1;
-  //   }
-  // }
-  console.log(errTrigger);
-
-  errTrigger ? noError = false : noError = true;
-
-  console.log('errorvalid: ' + noError);
-
-  return (requiredOriginal.length === requiredCurrent.length);
+  return (!errTrigger);
 }
 
 class Register extends React.Component{
@@ -62,10 +44,27 @@ class Register extends React.Component{
   }
 
   makeRegister() {
-    this.setState({alreadyExists: true});
+
+    if (JSON.parse(localStorage.getItem(inp.login.value))) {
+      this.setState({alreadyExists: true});
+    } else {
+      this.setState({alreadyExists: false});
+    }
 
     let isAllRequires = checkRequires();
-    console.log('has all fields: ' + isAllRequires);
+    console.log('has all requires: ' + isAllRequires);
+    console.log(inp);
+    console.log(inp.login);
+    if (isAllRequires && !JSON.parse(localStorage.getItem(inp.login.value))) {
+      const accountInfo = {};
+      for (let key in inp) {
+        (key !== 'login') && (accountInfo[key] = inp[key].value)
+      }
+      console.log('accountInfo: ', accountInfo);
+      localStorage.setItem(inp.login.value, JSON.stringify(accountInfo));
+      console.log('from localStorage: ', JSON.parse(localStorage.getItem(inp.login.value)));
+      this.props.openReg();
+    }
   }
 
   render() {
@@ -89,7 +88,7 @@ class Register extends React.Component{
         </div>
         <button type="submit" className="submit-btn" onClick={this.makeRegister}>Register</button>
         <span className="or">or</span>
-        <button className="or-btn">Sign in</button>
+        <button className="or-btn" onClick={this.props.openReg}>Sign in</button>
       </div>
     );
   }
