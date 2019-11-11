@@ -15,14 +15,3 @@ body {
 #root {
   height: 100%;
 }
-.intro {
-  .main-form-container {
-    margin-top: 300px;
-    max-width: 400px;
-    @include centers;
-  }
-  .wrapper {
-    @include section-width;
-    @include paddings;
-  }
-}

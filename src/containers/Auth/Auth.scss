@@ -1,0 +1,13 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+.auth {
+  .main-form-container {
+    margin-top: 300px;
+    max-width: 400px;
+    @include centers;
+  }
+  .wrapper {
+    @include section-width;
+    @include paddings;
+  }
+}

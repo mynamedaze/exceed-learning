@@ -1,19 +1,19 @@
 import React from 'react';
-//import logo from './logo.svg';
 import './sass/style.scss';
 import './App.scss';
 import './components/login/index.scss';
-import LoginForm from './components/login/index';
+import {Route, Switch} from 'react-router-dom';
+import Layout from "./hoc/Layout/Layout";
+import Auth from './containers/Auth/Auth'
 
 function App() {
   return (
-    <section className="intro">
-      <div className="wrapper">
-        <div className="main-form-container">
-          <LoginForm />
-        </div>
-      </div>
-    </section>
+
+    <Layout>
+      <Switch>
+        <Route path={'/auth'} component={Auth}/>
+      </Switch>
+    </Layout>
   );
 }
 
