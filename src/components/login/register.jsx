@@ -2,6 +2,7 @@ import React from 'react';
 import validRegister from './utils/validRegister.js';
 import Pass from './inputs/Pass.jsx';
 import InputDefault from './inputs/InputDefault.jsx';
+import axios from 'axios';
 
 const inp = {
 
@@ -45,24 +46,26 @@ class Register extends React.Component{
 
   makeRegister() {
 
-    if (JSON.parse(localStorage.getItem(inp.login.value))) {
-      this.setState({alreadyExists: true});
-    } else {
-      this.setState({alreadyExists: false});
-    }
-
     let isAllRequires = checkRequires();
     console.log('has all requires: ' + isAllRequires);
-    console.log(inp);
-    console.log(inp.login);
-    if (isAllRequires && !JSON.parse(localStorage.getItem(inp.login.value))) {
+    console.log('inp: ', inp);
+    if (isAllRequires) {
       const accountInfo = {};
       for (let key in inp) {
-        (key !== 'login') && (accountInfo[key] = inp[key].value)
+        if (inp.hasOwnProperty(key)) {
+          accountInfo[key] = inp[key].value;
+        }
       }
       console.log('accountInfo: ', accountInfo);
-      localStorage.setItem(inp.login.value, JSON.stringify(accountInfo));
-      console.log('from localStorage: ', JSON.parse(localStorage.getItem(inp.login.value)));
+      // localStorage.setItem(inp.login.value, JSON.stringify(accountInfo));
+      // console.log('from localStorage: ', JSON.parse(localStorage.getItem(inp.login.value)));
+      axios.post('http://localhost:8080/users/register', accountInfo)
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
       this.props.openReg();
     }
   }

@@ -1,15 +1,15 @@
 const validRegister = [
   {
-    field: 'loginLogin',
-    reg: '/^(?=.*[a-z]).{6,}/',
+    field: 'login',
+    reg: /^(?=.*[a-z]).{6,}/,
     type: 'text',
     required: true,
     placeholder: 'логин',
     classN: 'input  input--login'
   },
   {
-    field: 'passwordLogin',
-    reg: '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\\w\\s]).{6,}/',
+    field: 'password',
+    reg: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\\w\\s]).{6,}/,
     type: 'text',
     required: true,
     placeholder: 'пароль',
