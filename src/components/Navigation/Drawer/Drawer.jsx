@@ -10,21 +10,10 @@ import {NavLink} from 'react-router-dom';
 // ];
 
 class Drawer extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   clickHandler = () => {
     this.props.onClose();
   };
-
-  logOut = () => {
-
-  };
-
-  // renderLinks = () => {
-  //
-  // };
 
   render() {
     const clsName = ['drawer'];
@@ -36,17 +25,17 @@ class Drawer extends React.Component {
       <React.Fragment>
         <nav className={clsName.join(' ')}>
           <ul>
-            { !this.props.isAuthorized &&
-              <li>
-                <NavLink
-                  to={'/auth'}
-                  exact={true}
-                  activeClassName={'active'}
-                  onClick={this.clickHandler}
-                >Вход/Регистрация</NavLink>
-              </li>
+            {!this.props.isAuthenticated &&
+            <li>
+              <NavLink
+                to={'/auth'}
+                exact={true}
+                activeClassName={'active'}
+                onClick={this.clickHandler}
+              >Вход/Регистрация</NavLink>
+            </li>
             }
-            {this.props.isAuthorized &&
+            {this.props.isAuthenticated &&
             <li>
               <NavLink
                 to={'/homes'}
@@ -56,7 +45,7 @@ class Drawer extends React.Component {
               >Дома</NavLink>
             </li>
             }
-            {this.props.isAuthorized &&
+            {this.props.isAuthenticated &&
             <li>
               <NavLink
                 to={'/auth/profile'}
@@ -66,14 +55,16 @@ class Drawer extends React.Component {
               >Профиль</NavLink>
             </li>
             }
+            {this.props.isAuthenticated &&
             <li>
               <NavLink
                 to={'/logout'}
                 exact={true}
                 activeClassName={'active'}
-                onClick={this.logOut}
+                onClick={this.clickHandler}
               >Выход</NavLink>
             </li>
+            }
           </ul>
         </nav>
         { this.props.isOpen ? <Overlay onClick={this.props.onClose}/> : null}

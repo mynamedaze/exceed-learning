@@ -7,7 +7,11 @@
   color: #fff;
   transition: opacity, right .22s ease-in;
   z-index: 100;
-  background-color: green;
+  background-color: transparent;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("../../../img/btn--burger.svg");
   width: 30px;
   height: 30px;
   &:hover {
@@ -15,6 +19,6 @@
   }
   &.opened {
     right: 340px;
-    background-color: red;
+    background-image: url("../../../img/btn--close.svg");
   }
 }

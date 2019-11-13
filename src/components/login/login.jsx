@@ -1,7 +1,8 @@
 import React from 'react';
 import validLogin from './utils/validLogin.js';
 import InputDefault from "./inputs/InputDefault";
-import axios from 'axios';
+import {connect} from "react-redux";
+import {makeLogin} from "../../Store/actions/authAction";
 
 const inp = {
 
@@ -20,36 +21,11 @@ class Login extends React.Component {
       authValid: true
     };
 
-    this.makeLogin = this.makeLogin.bind(this);
     this.formData = {login :{
       field: 'login',
       hasError: false,
       value:'sdfs'
     }}
-  }
-
-  makeLogin() {
-    const accountInfo = {};
-    for (let key in inp) {
-      if (inp.hasOwnProperty(key)) {
-        accountInfo[key] = inp[key].value;
-      }
-    }
-
-    axios.post('http://localhost:8080/users/login', accountInfo)
-      .then(response => {
-        console.log(response);
-        if (!response.data.success) {
-          this.setState({authValid: false});
-          localStorage.setItem('authToken', '');
-        } else {
-          this.setState({authValid: true});
-          localStorage.setItem('authToken', response.data.token);
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
   }
 
   render() {
@@ -76,7 +52,7 @@ class Login extends React.Component {
             <button className="forgot-btn">Forgot password?</button>
           </div>
         </div>
-        <button type="submit" className="submit-btn" onClick={this.makeLogin}>sign in</button>
+        <button type="submit" className="submit-btn" onClick={() => {this.props.makeLogin(inp)}}>sign in</button>
         <span className="or">or</span>
         <button className="or-btn" onClick={this.props.openReg}>Register</button>
       </div>
@@ -84,4 +60,10 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+function mapDispatchToProps(dispatch) {
+  return {
+    makeLogin: inp => dispatch(makeLogin(inp))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Login);

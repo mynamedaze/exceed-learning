@@ -15,10 +15,12 @@
   }
   ul {
     list-style-type: none;
-    margin: 0;
+    margin: 0 0 0 20px;
     padding: 0;
     li {
       margin-bottom: 15px;
+      font-size: 16px;
+      margin-top: 10px;
       span {
         color: #363d54;
         font-size: 30px;
@@ -31,6 +33,12 @@
         &:active {
           opacity: .7;
         }
+      }
+      a {
+        color: #32CCBC;
+      }
+      a:visited {
+        color: #32CCBC;
       }
     }
   }
