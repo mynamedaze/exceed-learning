@@ -3,7 +3,7 @@
 
 .profile-container {
   margin-top: 300px;
-  max-width: 400px;
+  max-width: 500px;
   @include centers;
   .outer {
     @include section-width;
@@ -56,7 +56,7 @@
     }
   }
 
-  .input {
+  input {
     background-color: transparent;
     border-bottom: 1px solid rgba(255, 255, 255, 0.6);
     margin-top: 20px;
@@ -88,46 +88,55 @@
       border-bottom: 1px solid red;
     }
   }
-  .save-btn {
+  .buttons-field {
+    display: flex;
+    width: 200px;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    @include centers;
+  }
+ .edit-btn {
     position: relative;
-    width: 100%;
+    display: block;
+    @include centers;
     height: 50px;
     margin-top: 35px;
+    padding-left: 20px;
+    padding-right: 20px;
     text-transform: uppercase;
     background-color: #fff;
     transition: all 0.2s ease;
     cursor: pointer;
     letter-spacing: 3px;
-
-    &::before,
-    &::after {
-      position: absolute;
-      content: "";
-      width: 10px;
-      height: 60px;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: contain;
-      background-image: url("../../img/triangle.svg");
-      top: -10px;
-    }
-
-    &::before {
-      left: -10px;
-
-    }
-
-    &::after {
-      right: -10px;
-      transform: scaleX(-1);
-    }
-
-    &:hover {
-      transform: translateY(5px);
-    }
-
-    &:active {
-      color: #32CCBC;
-    }
+  }
+  .save-btn {
+    position: relative;
+    height: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-transform: uppercase;
+    background-color: #fff;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    letter-spacing: 3px;
+  }
+  .cancel-btn {
+    font-size: 16px;
+    text-decoration: underline;
+    background-color: transparent;
+    border: 0 solid transparent;
+    color: #fff;
+  }
+  .list {
+    padding-left: 0;
+  }
+  .item {
+    color: #fff;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  .item-notice {
+    color: rgba(255, 255, 255, .6);
   }
 }

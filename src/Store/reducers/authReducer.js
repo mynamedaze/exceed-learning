@@ -1,4 +1,4 @@
-import {AUTH_SUCCESS, LOGOUT} from "../actions/actionTypes";
+import {AUTH_SUCCESS, GET_PROFILE_INFO, LOGOUT} from "../actions/actionTypes";
 
 const initialState = {};
 
@@ -13,6 +13,11 @@ export default function authReducer(state = initialState, action) {
       return {
         ...state,
         authValid: false
+      };
+    case GET_PROFILE_INFO:
+      return {
+        ...state,
+        profileInfo: action.profileInfo
       };
     default:
       return state;

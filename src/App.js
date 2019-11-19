@@ -9,7 +9,7 @@ import Homes from "./containers/Homes/Homes";
 import Logout from "./components/Logout/Logout";
 import {connect} from "react-redux";
 import {autoLogin} from "./Store/actions/authAction";
-import Profile from "./components/Profile/Profile";
+import Profile from "./components/Profile/index";
 
 class App extends React.Component{
 
@@ -22,6 +22,7 @@ class App extends React.Component{
     let routes = (
         <Switch>
           <Route path={'/logout'} component={Logout}/>
+          <Route path={'/auth/profile'} component={Profile}/>
           <Route path={'/auth'} component={Auth}/>
           <Redirect to={'/auth'} exact/>
         </Switch>

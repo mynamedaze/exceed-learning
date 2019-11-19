@@ -1,5 +1,5 @@
 import axios from "axios";
-import {AUTH_SUCCESS, LOGOUT} from "./actionTypes";
+import {AUTH_SUCCESS, GET_PROFILE_INFO, LOGOUT} from "./actionTypes";
 
 export function makeLogin(inp) {
   return async dispatch => {
@@ -48,5 +48,23 @@ export function logout() {
   localStorage.removeItem('authToken');
   return {
     type: LOGOUT
+  }
+}
+
+export function getProfileInfo() {
+  return async dispatch => {
+    try {
+      const response = await axios.get('http://localhost:8080/users', {headers: {somekey: localStorage.getItem('authToken')}});
+      dispatch(fixProfileInfo(response.data));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+export function fixProfileInfo(profileInfo) {
+  return {
+    type: GET_PROFILE_INFO,
+    profileInfo
   }
 }

@@ -5,7 +5,7 @@ class InputDefault extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      inputsValue: ''
+      inputsValue: '',
     };
   }
 
@@ -19,8 +19,20 @@ class InputDefault extends React.Component {
 
     this.props.forGetValues(item.field, currentValue[item.field], item.hasError, item.required);
 
-    this.setState({ hasError: item.hasError });
+    this.setState({
+      inputsValue: currentValue[item.field],
+      hasError: item.hasError
+    })
 
+  }
+
+  componentDidMount() {
+    if (this.props.initialValue) {
+      this.setState((state, props) => ({
+        inputsValue: props.initialValue
+      }));
+      this.props.forGetValues(this.props.options.field, this.props.initialValue, false, this.props.required);
+    }
   }
 
   render() {
@@ -28,7 +40,7 @@ class InputDefault extends React.Component {
     return (
       <input type={validRegister[index].type}
              className={`${validRegister[index].classN}  ${options.hasError ? 'error' : ''}`}
-             value={this.state.inputsValue[index.field]}
+             value={this.state.inputsValue}
              onChange={(e) => { this.changeVal(options, e);}}
              placeholder={this.props.placeholder || validRegister[index].placeholder}
              required={validRegister[index].required}/>
