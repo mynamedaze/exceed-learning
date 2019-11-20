@@ -22,6 +22,7 @@ class App extends React.Component{
     let routes = (
         <Switch>
           <Route path={'/logout'} component={Logout}/>
+          <Route path={'/homes'} component={Homes}/>
           <Route path={'/auth/profile'} component={Profile}/>
           <Route path={'/auth'} component={Auth}/>
           <Redirect to={'/auth'} exact/>
@@ -31,8 +32,8 @@ class App extends React.Component{
     if (this.props.isAuthenticated) {
       routes = (
         <Switch>
-          <Route path={'/auth/profile'} component={Profile}/>
           <Route path={'/homes'} component={Homes}/>
+          <Route path={'/auth/profile'} component={Profile}/>
           <Route path={'/logout'} component={Logout}/>
           <Route path={'/auth'} component={Auth}/>
           <Redirect to={'/auth'} exact/>
