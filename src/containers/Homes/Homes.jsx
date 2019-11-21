@@ -1,7 +1,7 @@
 import React from 'react';
 import './Homes.scss';
-import InputCustom from "../../components/login/inputs/InputCustom";
-import SelectCustom from "../../components/login/inputs/SelectCustom";
+import InputCustom from "./InputCustom";
+import SelectCustom from "./SelectCustom";
 
 class Homes extends React.Component {
   constructor(props) {
@@ -45,8 +45,19 @@ class Homes extends React.Component {
       {homeId: 'sdfds', id: '03', value: 'Larek 3', label: 'Room 3'},
       {homeId: 'sdfds', id: '04', value: 'Larek 4', label: 'Room 4'},
     ];
+
   }
+
+  goChangeInput = event => {
+    this.setState({inputValue: event.target.value});
+  };
+
+  changeInputHandle = event => {
+    this.setState({inputValue: event.target.value});
+  };
+
     render() {
+    console.log('inputValue: ', this.state.inputValue);
       return (
       <div className="homes-container">
         <div className="outer">
@@ -58,9 +69,13 @@ class Homes extends React.Component {
                   goChangeInput={this.goChangeInput}
                   selectValue={this.state.valueSelect}
                   options={this.homes}
+                  placeholder={"Выберите дом..."}
                 />
                 <div className="edit-field">
-                  <input type="text" className="input" onChange={(e) => {this.handleChange('home', e)}} value={this.state.home}/>
+                  <InputCustom
+                    changeValue={this.changeInputHandle}
+                    value={this.state.inputValue}
+                  />
                   <button className="edit-btn">Edit</button>
                 </div>
               </div>

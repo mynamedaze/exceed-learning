@@ -19,6 +19,7 @@ class SelectCustom extends React.Component {
     return (
       <div>
         <select value={this.state.value} onChange={(e) => {this.onValueChange(e)}}>
+          <option value={this.props.placeholder} hidden={true}>{this.props.placeholder}</option>
           {this.props.options.map((item, i) =>{
             return (
               <option key={i} value={item.label}>{item.label}</option>
