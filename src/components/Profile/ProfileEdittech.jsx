@@ -3,7 +3,7 @@ import './index.scss';
 import InputDefault from "../login/inputs/InputDefault";
 import {connect} from "react-redux";
 import {fixProfileInfo, getProfileInfo} from "../../Store/actions/authAction";
-import validProfile from "../login/utils/validProfile";
+import validProfile from "../utils/validProfile";
 
 const inp = {
 

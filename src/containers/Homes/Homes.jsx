@@ -2,6 +2,8 @@ import React from 'react';
 import './Homes.scss';
 import InputCustom from "./InputCustom";
 import SelectCustom from "./SelectCustom";
+import axios from "axios";
+import requestPut from "../../components/utils/requestPut";
 
 class Homes extends React.Component {
   constructor(props) {
@@ -9,75 +11,157 @@ class Homes extends React.Component {
 
     this.state = {
       selectedHome: '',
-      selectedHomeId: '',
-      selectedRoom: ''
+      selectedRoom: '',
+      roomList: [],
+      homeList: []
     };
-
-    this.homes = [
-      {id: 'sdfds', value: 'The White House', label: 'The White House'},
-      {id: 'fdsfs', value: 'Big Ben', label: 'Big Ben'},
-      {id: 'gdfgs', value: 'Tower of Pisa', label: 'Tower of Pisa'},
-      {id: 'sssds', value: 'Old Trafford', label: 'Old Trafford'},
-      {id: 'sdfds', value: 'Auchan', label: 'Auchan'},
-    ];
-
-    this.rooms = [
-      {homeId: 'sdfds', id: '01', value: 'Room 1', label: 'Room 1'},
-      {homeId: 'sdfds', id: '02', value: 'Room 2', label: 'Room 2'},
-      {homeId: 'sdfds', id: '03', value: 'Room 3', label: 'Room 3'},
-      {homeId: 'sdfds', id: '04', value: 'Room 4', label: 'Room 4'},
-      {homeId: 'sdfds', id: '05', value: 'Room 5', label: 'Room 5'},
-      {homeId: 'sdfds', id: '06', value: 'Room 6', label: 'Room 6'},
-      {homeId: 'fdsfs', id: '01', value: 'Big 1', label: 'Room 1'},
-      {homeId: 'fdsfs', id: '02', value: 'Big 2', label: 'Room 2'},
-      {homeId: 'fdsfs', id: '03', value: 'Big 3', label: 'Room 3'},
-      {homeId: 'fdsfs', id: '04', value: 'Big 4', label: 'Room 4'},
-      {homeId: 'gdfgs', id: '01', value: 'Pisa 1', label: 'Room 1'},
-      {homeId: 'gdfgs', id: '02', value: 'Pisa 2', label: 'Room 2'},
-      {homeId: 'gdfgs', id: '03', value: 'Pisa 3', label: 'Room 3'},
-      {homeId: 'gdfgs', id: '04', value: 'Pisa 4', label: 'Room 4'},
-      {homeId: 'sssds', id: '01', value: 'Sector 1', label: 'Room 1'},
-      {homeId: 'sssds', id: '02', value: 'Sector 2', label: 'Room 2'},
-      {homeId: 'sssds', id: '03', value: 'Sector 3', label: 'Room 3'},
-      {homeId: 'sssds', id: '04', value: 'Sector 4', label: 'Room 4'},
-      {homeId: 'sdfds', id: '01', value: 'Larek 1', label: 'Room 1'},
-      {homeId: 'sdfds', id: '02', value: 'Larek 2', label: 'Room 2'},
-      {homeId: 'sdfds', id: '03', value: 'Larek 3', label: 'Room 3'},
-      {homeId: 'sdfds', id: '04', value: 'Larek 4', label: 'Room 4'},
-    ];
 
   }
 
-  goChangeInput = event => {
-    this.setState({inputValue: event.target.value});
+  changeInputValueRoom = (roomId, roomValue) => {
+    this.setState({
+      selectedRoom: {
+        _id: roomId,
+        value: roomValue
+      }
+    });
   };
 
-  changeInputHandle = event => {
-    this.setState({inputValue: event.target.value});
+  getRooms = async (homeId, homeValue) => {
+    try {
+      console.log(homeId);
+      const response = await axios.get('http://localhost:8080/homes/get-rooms/', {
+        headers: {
+          somekey: localStorage.getItem('authToken')
+        },
+          params: {
+           homeId: homeId
+          }
+      });
+      this.setState({
+        roomList: response.data.rooms,
+        inputValue: homeValue,
+        selectedRoom: {
+          value: ' '
+        },
+        selectedHome: {
+          _id: homeId,
+          value: homeValue
+        }
+      });
+      console.log('rooms', response);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-    render() {
-    console.log('inputValue: ', this.state.inputValue);
+  async componentDidMount() {
+    this.requestHomes();
+  }
+
+  requestHomes = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/homes/get-homes/', {
+        headers: {somekey: localStorage.getItem('authToken')}
+      });
+      this.setState({homeList: response.data.homes});
+      console.log('homes', response);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  renderSelect = () => {
       return (
+        <SelectCustom
+          goChangeInput={this.getRooms}
+          options={this.state.homeList}
+          placeholder={"Выберите дом..."}
+          value={this.state.selectedHome.value}
+        />
+      )
+  };
+
+  renderSelectRooms = () => {
+    return (
+      <SelectCustom
+        goChangeInput={this.changeInputValueRoom}
+        options={this.state.roomList}
+        placeholder={"Выберите комнату..."}
+        value={this.state.selectedRoom.value}
+      />
+    )
+  };
+
+  requestSaveHome = (value, homeId) => {
+    try {
+      const url = '/homes/update-home/';
+      const data = {
+        value,
+        homeId,
+      };
+      const response = requestPut(url, data);
+
+      const homeList = this.state.homeList;
+      const selectedHome = this.state.selectedHome;
+      let homeIndex = homeList.findIndex(item => item._id === selectedHome._id);
+
+      homeList[homeIndex].value = value;
+
+      this.setState({homeList, selectedHome: {
+          _id: selectedHome._id,
+          value: homeList[homeIndex].value
+        }});
+      console.log(response);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  requestSaveRoom = async (value, roomId) => {
+    try {
+      const url = '/homes/update-room/';
+      const data = {
+        value,
+        roomId,
+      };
+
+      const response = requestPut(url, data);
+
+      const roomList = this.state.roomList;
+      const selectedRoom = this.state.selectedRoom;
+      let roomIndex = roomList.findIndex(item => item._id === selectedRoom._id);
+      roomList[roomIndex].value = value;
+      this.setState({roomList, selectedRoom: {
+          _id: selectedRoom._id,
+          value: roomList[roomIndex].value
+        }});
+      console.log(response);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  render() {
+    console.log('selectedHome: ', this.state.selectedRoom);
+    console.log('inputValueRoom: ', this.state.inputValueRoom);
+    return (
       <div className="homes-container">
         <div className="outer">
           <div className="homes">
             <h2 className="title">Homes</h2>
             <div className="wrapper">
               <div className="forms-field">
-                <SelectCustom
-                  goChangeInput={this.goChangeInput}
-                  selectValue={this.state.valueSelect}
-                  options={this.homes}
-                  placeholder={"Выберите дом..."}
+                {this.state.homeList.length !== 0 && this.renderSelect()}
+                <InputCustom
+                  options={this.state.selectedHome}
+                  goSave={this.requestSaveHome}
                 />
-                <div className="edit-field">
-                  <InputCustom
-                    changeValue={this.changeInputHandle}
-                    value={this.state.inputValue}
-                  />
-                  <button className="edit-btn">Edit</button>
-                </div>
+                {this.renderSelectRooms()}
+                <InputCustom
+                  options={this.state.selectedRoom}
+                  goSave={this.requestSaveRoom}
+                />
               </div>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import validLogin from './utils/validLogin.js';
+import validLogin from '../utils/validLogin.js';
 import InputDefault from "./inputs/InputDefault";
 import {connect} from "react-redux";
 import {makeLogin} from "../../Store/actions/authAction";

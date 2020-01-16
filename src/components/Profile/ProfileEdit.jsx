@@ -2,8 +2,8 @@ import React from 'react';
 import './index.scss';
 import InputDefault from "../login/inputs/InputDefault";
 import {connect} from "react-redux";
-import {fixProfileInfo, getProfileInfo} from "../../Store/actions/authAction";
-import validProfile from "../login/utils/validProfile";
+import {getProfileInfo} from "../../Store/actions/authAction";
+import validProfile from "../utils/validProfile";
 import axios from "axios";
 
 const inp = {};

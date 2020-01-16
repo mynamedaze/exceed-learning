@@ -2,7 +2,7 @@ import React from 'react';
 import './index.scss';
 import {connect} from "react-redux";
 import {getProfileInfo} from "../../Store/actions/authAction";
-import validProfile from "../login/utils/validProfile";
+import validProfile from "../utils/validProfile";
 
 class ProfileView extends React.Component {
   constructor(props) {

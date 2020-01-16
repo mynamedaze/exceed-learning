@@ -1,5 +1,5 @@
 import React from 'react';
-import validRegister from './utils/validRegister.js';
+import validRegister from '../utils/validRegister.js';
 import Pass from './inputs/Pass.jsx';
 import InputDefault from './inputs/InputDefault.jsx';
 import axios from 'axios';

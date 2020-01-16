@@ -1,5 +1,5 @@
 import React from 'react';
-import validRegister from "../utils/validRegister";
+import validRegister from "../../utils/validRegister";
 
 class Pass extends React.Component {
   constructor(props) {
